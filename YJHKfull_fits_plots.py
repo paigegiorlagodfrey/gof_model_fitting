@@ -5,9 +5,10 @@ from pylab import *
 from matplotlib import colors
 import matplotlib as mpl
 from scipy.interpolate import spline
-import modules as m
-from BDNYCdb import BDdb,utilities as u
-db=BDdb.get_db('/Users/paigegiorla/Desktop/PG_DB_2_16_15.db')
+import small_functions as m
+from BDNYCdb import utilities as u
+from astrodbkit import astrodb
+db = astrodb.Database('/Users/paigegiorla/Desktop/PG_DB_2_16_15.db')
 rcParams['figure.figsize'] =12,6
 mpl.rcParams['xtick.labelsize'] = 8
 mpl.rcParams['ytick.labelsize'] = 8
@@ -43,7 +44,7 @@ def showme(model_grid_path_name):
 		leg1 = Rectangle((0, 0), 0, 0, alpha=0.0)
 		for k in range(len(list)):
 			d=list[k][i]
-			designation = db.list("select names from sources where shortname like '{}'".format(d['object_params'][1])).fetchone()
+			designation = db.query("select names from sources where shortname like '{}'".format(d['object_params'][1]))
 			spectype = u.specType(d['object_params'][0])
 			model_info = '{}\n{}'.format(d['model_params'][0],d['model_params'][1])
 			idx = teffs.index(d['model_params'][0])

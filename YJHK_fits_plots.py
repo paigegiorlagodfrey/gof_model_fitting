@@ -5,7 +5,7 @@ from pylab import *
 from matplotlib import colors
 import matplotlib as mpl
 from scipy.interpolate import spline
-import modules as m
+import small_functions as m
 rcParams['figure.figsize'] =12,6
 
 mpl.rcParams['xtick.labelsize'] = 8

@@ -1,25 +1,26 @@
-from BDNYCdb import BDdb, utilities as u
-db=BDdb.get_db('/Users/paigegiorla/Dropbox/BDNYCdb/BDNYC.db')
-ma_db=BDdb.get_db('/Users/paigegiorla/Code/Python/BDNYC/model_atmospheres.db')
+from BDNYCdb import utilities as u
+from astrodbkit import astrodb
+db = astrodb.Database('/Users/paigegiorla/Dropbox/BDNYCdb/BDNYC.db')
+ma_db = astrodb.Database('/Users/paigegiorla/Code/Models/model_atmospheres.db')
 from matplotlib import pyplot as plt 
 import numpy as np
 import astropy.units as q
 import pickle
 import scipy.stats as s
-import modules as m
+import small_functions as m
 from pylab import rcParams
 rcParams['figure.figsize'] = 8, 10
 plt.rc('xtick',labelsize=20)
 plt.rc('ytick',labelsize=20)
   
-def showme(teffmin,teffmax, band, model_grid, models,filled=True,plot=True):
+def showme(n,teffmin,teffmax, band, model_grid, models,filled=True,plot=True):
 	'''
 		This code will bin down all of the models within a temperature range  in database to the wavelength range and resolution of the object called in to question. 
 		It returns the list of the spectral types of all of the T dwarf templates, and their corresponding chi squared fit value.
+		Models is the dict from make_model_db in EmceeEmcee
 	'''
 	
 	objects_file = np.load('/Users/paigegiorla/Code/Python/BDNYC/t_dwarfs/model_fits/spex_objects_J.txt')		
-#  	models = ma_db.query.execute("select * from '{}'".format(model_grid)).fetchall()
 	outfile = file('/Users/paigegiorla/Code/Python/BDNYC/t_dwarfs/model_fits/{}'.format(model_grid)+'/model_fitting_results_{}_{}'.format(band,filled)+'.txt', 'w')
 	outfile2 = file('/Users/paigegiorla/Code/Python/BDNYC/t_dwarfs/model_fits/{}'.format(model_grid)+'/model_fitting_bestfit_{}_{}'.format(band,filled)+'.txt', 'w')
 	outfile3 = file('/Users/paigegiorla/Code/Python/BDNYC/t_dwarfs/model_fits/{}'.format(model_grid)+'/model_fitting_bestfit_spectrum_{}_{}'.format(band,filled)+'.txt', 'w')

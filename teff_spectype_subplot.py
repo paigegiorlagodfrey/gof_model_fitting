@@ -2,7 +2,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 import astropy.units as q
 import scipy.stats as s
-import modules as m
+import small_functions as m
 from matplotlib.colors import ListedColormap
 from pylab import *
 import matplotlib.lines as mlines
